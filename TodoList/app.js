@@ -1,63 +1,62 @@
-let banco = [
-    {'tarefa':'Estudar JS','status':''},
-    {'tarefa':'Estudar PHP','status':'checked'},
-    {'tarefa':'Assistir netflix','status':''}
-]
+let banco = [{'tarefa':'Estudar PHP','status':'checked'},]
+//Adicionar "Nenhuma tarefa adicionada ao exibir banco"
 const input = document.getElementById("nomeitm");
 const lista =document.getElementById('lista');
 
-const criarItem = (nomeitem,status='',id) =>{
+const criarItem = (nomeitem, status ='', id) => {
     const item = document.createElement('label');
     item.classList.add('todo__item');
     item.innerHTML = `
     <input type="checkbox" ${status} data-id=${id}>
     <div>${nomeitem}</div>
     <input type="button" value="X"data-id=${id}>
-    `    
-
-    lista.appendChild(item);
+    ` 
+    console.log(id);
+    lista.appendChild (item); 
 }
 
-input.addEventListener("keyup", function(event){
+input.addEventListener ("keyup", function(event){
     event.preventDefault();
     if (event.key == "Enter") {
-        banco.push({'tarefa': input.value, 'status':''})
-        criarItem(input.value,'');
+        banco.push ({'tarefa': input.value, 'status':''})
+        criarItem (input.value,'');
         input.value = '';
-        
     }
 });
 
-const removeItem =(id)=>{
+const removeItem = (id) => {
     banco.splice(id,1);
     renderScreen();
 }
-const atualizaItem =(id)=>{
-    banco[id].status = banco[id].status==''? 'checked':'';
+
+const atualizaItem = (id) => {
+    banco[id].status = banco[id].status == '' ? 'checked' : '';
+    renderScreen();
 }
 
-const clickItem = (evento) =>{
-    var elemento =evento.target;
-    if(elemento.type=='button'){
-        var id = elemento.dataset.id
+const clickItem = (evento) => {
+    var elemento = evento.target;
+    console.log(elemento)
+    if(elemento.type == 'button'){
+        var id = elemento.dataset.id;
         removeItem(id);
     }
-    else if(elemento.type=='checkbox'){
+    else if(elemento.type == 'checkbox'){
         var id = elemento.dataset.id;
         atualizaItem(id);
     }
 }
-lista.addEventListener('click', clickItem);
+lista.addEventListener ('click', clickItem);
 
-const cleanScreen = () =>{
-    while (lista.firstChild){
+const cleanScreen = () => {
+    while (lista.firstChild) {
         lista.removeChild(lista.lastChild);
     }
 }
 
-const renderScreen = () =>{
+const renderScreen = () => {
     cleanScreen();
-    banco.forEach((item,id) =>criarItem(item.tarefa,item.status,id));
+    banco.forEach( (item,id) => criarItem (item.tarefa,item.status,id) );
     console.log(banco)
 }
 renderScreen();
