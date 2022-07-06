@@ -54,7 +54,19 @@ const cleanScreen = () => {
 
 const renderScreen = () => {
     cleanScreen();
+    if (banco.length == "" || banco.length == null){
+        nenhumaMensagem();
+    }
     banco.forEach( (item,id) => criarItem (item.tarefa,item.status,id) );
     console.log(banco)
+}
+
+const nenhumaMensagem = () => {
+    const item = document.createElement('label');
+    item.classList.add('todo__item');
+    item.innerHTML = `
+    <div>Nenhuma tarefa em andamento, adicione uma</div>
+    ` 
+    lista.appendChild (item); 
 }
 renderScreen();
