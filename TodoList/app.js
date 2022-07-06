@@ -1,4 +1,4 @@
-let banco = [{'tarefa':'Estudar PHP','status':'checked'},]
+let banco = []
 //Adicionar "Nenhuma tarefa adicionada ao exibir banco"
 const input = document.getElementById("nomeitm");
 const lista =document.getElementById('lista');
@@ -11,15 +11,14 @@ const criarItem = (nomeitem, status ='', id) => {
     <div>${nomeitem}</div>
     <input type="button" value="X"data-id=${id}>
     ` 
-    console.log(id);
     lista.appendChild (item); 
 }
 
 input.addEventListener ("keyup", function(event){
     event.preventDefault();
     if (event.key == "Enter") {
-        banco.push ({'tarefa': input.value, 'status':''})
-        criarItem (input.value,'');
+        banco.push ({'tarefa': input.value, 'status':''});
+        renderScreen();
         input.value = '';
     }
 });
@@ -36,7 +35,6 @@ const atualizaItem = (id) => {
 
 const clickItem = (evento) => {
     var elemento = evento.target;
-    console.log(elemento)
     if(elemento.type == 'button'){
         var id = elemento.dataset.id;
         removeItem(id);
